@@ -1,0 +1,12 @@
+{
+  "name": "offline-soundslice",
+  "version": "1.0.0",
+  "description": "Save an embed soundslice music sheet locally, so users could acess the music sheet offline",
+  "main": "app_shell.html",
+  "scripts": {
+    "start": "npx live-server --open=/app_shell.html"
+  },
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+}
