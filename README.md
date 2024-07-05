@@ -1,7 +1,9 @@
 # Offline Soundslice
 
 ## Descrption
+Run Soundslice musicsheet locally.
 
+This application allows you to download any embeded Soundslice musicsheet online and run it locally offline.
 
 ## Getting Started
 ### Requirements
