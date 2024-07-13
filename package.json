@@ -2,11 +2,14 @@
   "name": "offline-soundslice",
   "version": "1.0.0",
   "description": "Run Soundslice musicsheet locally",
-  "main": "app_shell.html",
+  "main": "index.html",
   "scripts": {
-    "start": "npx live-server --open=/app_shell.html"
+    "server": "python ./api/main.py",
+    "client": "npx live-server",
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "concurrently": "^8.2.2",
     "live-server": "^1.2.2"
   }
 }
