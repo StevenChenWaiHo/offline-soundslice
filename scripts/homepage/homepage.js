@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             data.songs.forEach(song => {
                 const songItem = document.createElement('div');
                 songItem.className = 'song-item';
-                songItem.innerHTML = `<a href="app_shell.html?song=${song}">${song}</a>`;
+                songItem.innerHTML = `<a href="app_shell.html?song=${song.name}">${song.name}</a>  by ${song.artist}`;
                 songList.appendChild(songItem);
             });
         }
@@ -44,9 +44,12 @@ const addButton = document.getElementById('add-button');
 const addSongForm = document.getElementById('add-song-form');
 const songForm = document.getElementById('song-form');
 const songList = document.getElementById('song-list');
+var formShown = false;
 
 addButton.addEventListener('click', () => {
-    addSongForm.style.display = 'block';
+    formShown = !formShown
+    addSongForm.style.display = formShown ? 'block' : 'none';
+    addButton.textContent = formShown ? 'close' : 'add'
 });
 
 songForm.addEventListener('submit', (e) => {
