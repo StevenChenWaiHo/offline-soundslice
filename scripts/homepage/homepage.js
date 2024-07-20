@@ -6,15 +6,12 @@ const songL = []
 document.addEventListener('DOMContentLoaded', async () => {
     const songList = document.getElementById('song-list');
     console.log(songL)
-    
-    
-
     // Fetch songs from the API
     fetch(url + '/api/songs', {
-        method:'GET',
-        headers:{
-            'Accept':'application/json',
-            'Content-Type':'application/json',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
     }).then((response) => {
         if (!response.ok) {
@@ -22,20 +19,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         return response.json();
     })
-    .then((data) => {
-        console.log(JSON.stringify(data))
-        if (data.songs) {
-            data.songs.forEach(song => {
-                const songItem = document.createElement('div');
-                songItem.className = 'song-item';
-                songItem.innerHTML = `<a href="app_shell.html?song=${song.name}">${song.name}</a>  by ${song.artist}`;
-                songList.appendChild(songItem);
-            });
-        }
-    })
-    .catch((error) => {
-        alert(error);
-    });
+        .then((data) => {
+            console.log(JSON.stringify(data))
+            if (data.songs) {
+                data.songs.forEach(song => {
+                    const songItem = document.createElement('div');
+                    songItem.className = 'song-item';
+                    songItem.innerHTML = `<a href="app_shell.html?song=${encodeURIComponent(song.name)}">${song.name}</a>  by ${song.artist}`;
+                    songList.appendChild(songItem);
+                });
+            }
+        })
+        .catch((error) => {
+            alert(error);
+        });
 
 })
 
@@ -56,15 +53,35 @@ songForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const songName = document.getElementById('song-name').value;
     const artistName = document.getElementById('artist-name').value;
+    const sheetData = document.getElementById('sheet-data').value;
 
-    if (songName && artistName) {
-        const newSongItem = document.createElement('div');
-        newSongItem.className = 'song-item';
-        newSongItem.innerHTML = `<a href="#">${songName}</a> by ${artistName}`;
-        songList.appendChild(newSongItem);
+    const formData = new FormData();
+    formData.append('metadata', JSON.stringify({
+        
+    }));
 
-        document.getElementById('song-name').value = '';
-        document.getElementById('artist-name').value = '';
-        addSongForm.style.display = 'none';
-    }
+    fetch(url + '/api/songs', {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: songName,
+            artist: artistName,
+            sheetData: sheetData
+          })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Error: ' + data.error);
+            } else {
+                alert('Success: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error.message);
+            alert('An error occurred. Please try again.');
+        });
 });

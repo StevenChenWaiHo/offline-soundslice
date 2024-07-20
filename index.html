@@ -22,8 +22,6 @@
   </head>
   <body>
     <h1>Song List</h1>
-    <div class="song-list" id="song-list">
-    </div>
     <button id="add-button">Add</button>
 
     <div id="add-song-form">
@@ -43,9 +41,18 @@
           name="artist-name"
           required
         /><br /><br />
+        <label for="artist-name">Data (JSON Format):</label><br />
+        <textarea
+          id="sheet-data"
+          name="sheet-data"
+          required
+        ></textarea><br /><br />
         <button type="submit">Add Song</button>
       </form>
     </div>
+
+    <div class="song-list" id="song-list"></div>
+
     <script
       type="text/javascript"
       src="./scripts/homepage/homepage.js"
