@@ -41,7 +41,6 @@ def upload_songs():
         scoredata_json['name'] = body['name']
         scoredata_json['a'] = body['artist']
         sheetData = json.loads(body['sheetData'])
-        print(sheetData)
 
         songDirectory = DIRECTORY + body['name'] + '/'
         scoredata_json['d'] = songDirectory + 'data.json'
